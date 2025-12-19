@@ -11,7 +11,12 @@ with st.form("valuation_form"):
     declared_value = st.number_input("Declared Value", min_value=0.0)
     invoice_value = st.number_input("Invoice Value", min_value=0.0)
     assessed_value = st.number_input("Assessed Value", min_value=0.0)
-    previous_risk = st.number_input("Previous Overall Risk Score", min_value=0.0, max_value=100.0)
+    previous_risk = st.number_input(
+        "Previous Overall Risk Score",
+        min_value=0.0,
+        max_value=1.0,
+        step=0.01
+    )
     submit = st.form_submit_button("Analyze")
 
 if submit:
@@ -30,7 +35,11 @@ if submit:
         "previous_overall_risk_score": previous_risk
     }])
 
-    pred = model.predict(X)[0]
-    verdict = "NORMAL" if pred == 0 else "UNDER / OVER VALUED"
+    prediction = model.predict(X)[0]
 
-    st.markdown(f"<h3 style='text-align:center;'>Verdict: {verdict}</h3>", unsafe_allow_html=True)
+    if prediction == 1:
+        verdict = "UNDER / OVER VALUED"
+    else:
+        verdict = "NORMAL"
+
+    st.markdown(f"### Verdict: {verdict}")
