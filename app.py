@@ -67,13 +67,15 @@ if submit:
         "previous_overall_risk_score": previous_risk
     }])
 
-    pred = model.predict(X)[0]
     prob = model.predict_proba(X)[0][1]
 
-st.markdown("---")
-if prob >= 0.6:
-    st.markdown("<h3 style='text-align:center;'>Verdict: UNDER / OVER VALUED</h3>", unsafe_allow_html=True)
-else:
-    st.markdown("<h3 style='text-align:center;'>Verdict: NORMAL</h3>", unsafe_allow_html=True)
+    st.markdown("---")
+    if prob >= 0.6:
+        st.markdown("<h3 style='text-align:center;'>Verdict: UNDER / OVER VALUED</h3>", unsafe_allow_html=True)
+    else:
+        st.markdown("<h3 style='text-align:center;'>Verdict: NORMAL</h3>", unsafe_allow_html=True)
 
-st.markdown(f"<p style='text-align:center;'>Risk Confidence: {prob*100:.1f}%</p>", unsafe_allow_html=True)
+    st.markdown(
+        f"<p style='text-align:center;'>Risk Confidence: {prob*100:.1f}%</p>",
+        unsafe_allow_html=True
+    )
