@@ -35,17 +35,22 @@ st.caption(
 )
 
 with st.form("valuation_form"):
-    importer_id = st.text_input("Importer ID")
-    exporter_id = st.text_input("Exporter ID")
-    declared_value = st.number_input("Declared Value", min_value=0.0)
-    invoice_value = st.number_input("Invoice Value", min_value=0.0)
-    assessed_value = st.number_input("Assessed Value", min_value=0.0)
-    previous_risk = st.number_input(
-        "Previous Overall Risk Score",
-        min_value=0.0,
-        max_value=1.0,
-        value=0.5
-    )
+    col1, col2 = st.columns(2)
+
+    with col1:
+        importer_id = st.text_input("Importer ID")
+        declared_value = st.number_input("Declared Value", min_value=0.0)
+        assessed_value = st.number_input("Assessed Value", min_value=0.0)
+
+    with col2:
+        exporter_id = st.text_input("Exporter ID")
+        invoice_value = st.number_input("Invoice Value", min_value=0.0)
+        previous_risk = st.number_input(
+            "Previous Overall Risk Score",
+            min_value=0.0,
+            max_value=1.0
+        )
+
     submit = st.form_submit_button("Analyze")
 
 if submit:
